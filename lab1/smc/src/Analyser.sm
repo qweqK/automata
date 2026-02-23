@@ -1,0 +1,57 @@
+%class Analyser
+%heder Analyser.h
+%start AnalyserMap::Start
+
+%map AnalyserMap
+%%
+Start{
+    letter NameState {}
+
+}
+
+NameState{
+    letter nil {}
+    space SpaceState {}
+    EOS GoodCom {}
+
+}
+
+SpaceState{
+    hyphen[ctxt.isBeforeArg()] {increaseOpt();}
+    letter ArgState() {increaseArg();setArgState();}
+    space nil {}
+    EOS GoodCom {}
+}
+
+OptState{
+    letter nil {}
+    number
+
+}
+AfterOptState{
+
+}
+ArgState{
+    letter nil
+
+
+}
+NumberState{
+    number(num) nil {numCounter(num);}
+    space[ctxt.isNumEqual()] SpaceState {}
+
+}
+
+GoodCom{
+    nextString {increaseCom(); resetStateStr();}
+}
+
+Error{
+
+}
+
+Default{
+    unknown Error {}
+    hyphen Error {}
+    letter Error {}
+}
