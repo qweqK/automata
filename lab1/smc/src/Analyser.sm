@@ -1,57 +1,65 @@
 %class Analyser
-%heder Analyser.h
+%header Analyser.h
 %start AnalyserMap::Start
 
 %map AnalyserMap
 %%
 Start{
-    letter NameState {}
+    letter(n: char) NameState {printer('s');boof(n);}
 
 }
 
 NameState{
-    letter nil {}
+    letter(n: char) nil {nameDGB();boof(n);}
     space SpaceState {}
-    EOS GoodCom {}
-
 }
 
 SpaceState{
-    hyphen[ctxt.isBeforeArg()] {increaseOpt();}
-    letter ArgState() {increaseArg();setArgState();}
-    space nil {}
-    EOS GoodCom {}
+    hyphen[ctxt.isBeforeArg()] OptState {increaseOpt();}
+    hyphen Error {setBad();}
+    letter(n: char) ArgState {increaseArg();setAfterArg();}
+    space nil {printer('p');}
 }
 
 OptState{
-    letter nil {}
-    number
+    letter(n: char) nil {printer('o');}
+    //number(num: int) NumberState {numCounter(num);}
+    //EOS Error{}
+    space SpaceState{}
 
 }
-AfterOptState{
 
-}
 ArgState{
-    letter nil
-
+    letter(n: char) nil {printer('a');}
+    //number NumberState {}
+    //EOS Error {}
+    space SpaceState {}
 
 }
-NumberState{
-    number(num) nil {numCounter(num);}
+
+/*{NumberState{
+    number(num: int) nil {numCounter(num);}
     space[ctxt.isNumEqual()] SpaceState {}
-
-}
+    space Error {}
+    EOS[ctxt.isNumEqual()] GoodCom {setGood();}
+    EOS Error {setBad();}
+}*/
 
 GoodCom{
-    nextString {increaseCom(); resetStateStr();}
+    nextString Start {increaseCom();countUsesCom();resetBuffer();}
 }
 
 Error{
+    EOS Error {printer('e');}
+    nextString Start {printer('e');resetBuffer();}
+    space Error {}
 
 }
 
 Default{
-    unknown Error {}
-    hyphen Error {}
-    letter Error {}
+    unknown Error {setBad();}
+    hyphen Error {setBad();}
+    letter(n: char) Error {setBad();}
+    EOS GoodCom {setGood();}
 }
+%%
