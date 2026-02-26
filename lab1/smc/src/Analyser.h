@@ -29,7 +29,7 @@ public:
     [[nodiscard]] bool isBeforeArg() const { return _beforeArg; }
     //void numCounter(int num) {_curNum = _curNum*10 + num;}
     void increaseCom() {_com++;}
-    void resetStateStr() {}
+    void resetStateStr() {_beforeArg = true;}
     void setGood() { isGood = true; }
     void chekString(std::string & str);
     void nameDGB() {std::cout << "name"<< std::endl;}

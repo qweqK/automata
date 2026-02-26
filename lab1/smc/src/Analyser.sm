@@ -15,7 +15,7 @@ NameState{
 }
 
 SpaceState{
-    hyphen[ctxt.isBeforeArg()] OptState {increaseOpt();}
+    hyphen[ctxt.isBeforeArg()] HyphenState {increaseOpt();}
     hyphen Error {setBad();}
     letter(n: char) ArgState {increaseArg();setAfterArg();}
     space nil {printer('p');}
@@ -46,13 +46,19 @@ ArgState{
 }*/
 
 GoodCom{
-    nextString Start {increaseCom();countUsesCom();resetBuffer();}
+    nextString Start {increaseCom();countUsesCom();resetBuffer();resetStateStr();}
 }
 
 Error{
     EOS Error {printer('e');}
-    nextString Start {printer('e');resetBuffer();}
+    nextString Start {printer('e');resetBuffer();resetStateStr();}
     space Error {}
+
+}
+
+HyphenState{
+    EOS Error{}
+    letter(n: char) OptState {}
 
 }
 
@@ -61,5 +67,6 @@ Default{
     hyphen Error {setBad();}
     letter(n: char) Error {setBad();}
     EOS GoodCom {setGood();}
+    space Error {setBad();}
 }
 %%
