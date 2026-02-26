@@ -14,21 +14,16 @@ void Analyser::chekString(std::string &str ) {
         else if (c == ' ') {
             std::cout << 3 <<std::endl;
             _fsm.space();
-
-
         }
-        /*else if (isdigit(c)) {
-            std::cout << 4 <<std::endl;
-            _fsm.number(static_cast<int>(c)-48);
+        else if (c == '\n' || c == '\r') {
+            _fsm.EOS();
+            _fsm.nextString();
+        }
 
-        }*/
         else {
-            std::cout << 5 <<std::endl;
             _fsm.unknown();
         }
     }
-    _fsm.EOS();
-    _fsm.nextString();
     massPlus(isGood);
 
 }

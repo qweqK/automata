@@ -1,0 +1,1 @@
+add_library(generator STATIC generat.h generat.cpp)

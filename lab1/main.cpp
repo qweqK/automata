@@ -1,14 +1,29 @@
 #include <iostream>
 #include "smc/src/Analyser.h"
+#include <fstream>
 int main() {
-    std::string str = "qwe -we r";
-    std::string str2 = "qwe -wq";
-    std::string str3 = "qr -";
-
     Analyser a;
-    a.chekString(str);
-    a.chekString(str2);
-    a.chekString(str3);
-    a.printRes(std::cout);
-    a.printCom(std::cout);
+    std::ifstream in("input.txt");
+    std::vector<std::string> x;
+    if (in.is_open()) {
+        std::string st;
+        while (getline(in,st)) {
+            x.emplace_back(st);
+        }
+    }
+    in.close();
+
+    for (auto &s : x) {
+        a.chekString(s);
+    }
+
+
+    std::ofstream out;
+    out.open("output.txt");
+    if (out.is_open()) {
+        std::cout << "нори откр" << std::endl;
+        a.printRes(out);
+        a.printCom(out);
+    }
+    out.close();
 }

@@ -5,68 +5,58 @@
 %map AnalyserMap
 %%
 Start{
-    letter(n: char) NameState {printer('s');boof(n);}
+    letter(n: char) NameState   {boof(n);}
+    EOS             Error       {setBad();}
 
 }
 
 NameState{
-    letter(n: char) nil {nameDGB();boof(n);}
-    space SpaceState {}
+    letter(n: char) nil         {boof(n);}
+    space           SpaceState  {}
 }
 
 SpaceState{
-    hyphen[ctxt.isBeforeArg()] HyphenState {increaseOpt();}
-    hyphen Error {setBad();}
-    letter(n: char) ArgState {increaseArg();setAfterArg();}
-    space nil {printer('p');}
+    hyphen[ctxt.isBeforeArg()]  HyphenState {}
+    hyphen          Error       {setBad();}
+    letter(n: char) ArgState    {setAfterArg();}
+    space           nil         {}
 }
 
 OptState{
-    letter(n: char) nil {printer('o');}
-    //number(num: int) NumberState {numCounter(num);}
-    //EOS Error{}
-    space SpaceState{}
+    letter(n: char) nil         {}
+    space           SpaceState  {}
 
 }
 
 ArgState{
-    letter(n: char) nil {printer('a');}
-    //number NumberState {}
-    //EOS Error {}
-    space SpaceState {}
+    letter(n: char) nil         {}
+    space           SpaceState  {}
 
 }
 
-/*{NumberState{
-    number(num: int) nil {numCounter(num);}
-    space[ctxt.isNumEqual()] SpaceState {}
-    space Error {}
-    EOS[ctxt.isNumEqual()] GoodCom {setGood();}
-    EOS Error {setBad();}
-}*/
-
 GoodCom{
-    nextString Start {increaseCom();countUsesCom();resetBuffer();resetStateStr();}
+    nextString      Start       {countUsesCom();resetBuffer();resetStateStr();}
 }
 
 Error{
-    EOS Error {printer('e');}
-    nextString Start {printer('e');resetBuffer();resetStateStr();}
-    space Error {}
+    EOS Error {}
+    nextString      Start       {resetBuffer();resetStateStr();}
+    space           Error       {}
 
 }
 
 HyphenState{
-    EOS Error{}
-    letter(n: char) OptState {}
+    EOS             Error       {setBad();}
+    letter(n: char) OptState    {}
+
 
 }
 
 Default{
-    unknown Error {setBad();}
-    hyphen Error {setBad();}
-    letter(n: char) Error {setBad();}
-    EOS GoodCom {setGood();}
-    space Error {setBad();}
+    unknown         Error       {setBad();}
+    hyphen          Error       {setBad();}
+    letter(n: char) Error       {setBad();}
+    EOS             GoodCom     {setGood();}
+    space           Error       {setBad();}
 }
 %%
