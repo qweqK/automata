@@ -1,0 +1,1 @@
+add_library(writer STATIC writerReader.cpp writerReader.h)

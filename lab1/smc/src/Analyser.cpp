@@ -3,29 +3,35 @@
 void Analyser::chekString(std::string &str ) {
     for (auto & c : str) {
         if (isalpha(c)) {
-            std::cout << 1 <<std::endl;
             _fsm.letter(c);
         }
         else if (c== '-') {
-            std::cout << 2 <<std::endl;
             _fsm.hyphen();
 
         }
         else if (c == ' ') {
-            std::cout << 3 <<std::endl;
             _fsm.space();
         }
         else if (c == '\n' || c == '\r') {
-            _fsm.EOS();
-            _fsm.nextString();
+            break;
         }
 
         else {
             _fsm.unknown();
         }
-    }
-    massPlus(isGood);
 
+    }
+    _fsm.EOS();
+    _fsm.nextString();
+    massPlus(takeGood());
+
+}
+
+
+void Analyser::checkManyString(std::vector<std::string> lines) {
+    for (auto & l : lines) {
+        chekString(l);
+    }
 }
 
 

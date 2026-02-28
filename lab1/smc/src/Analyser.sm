@@ -35,18 +35,18 @@ OptState{
 }
 
 ArgState{
-    letter(n: char) nil         {}
+    letter(n: char) nil          {}
     space           Space2State  {}
 
 }
 
 GoodCom{
-    nextString      Start       {countUsesCom();resetBuffer();resetStateStr();}
+    nextString      Start       {countUsesCom();resetBuffer();}
 }
 
 Error{
-    EOS Error {}
-    nextString      Start       {resetBuffer();resetStateStr();}
+    EOS             Error       {}
+    nextString      Start       {resetBuffer();}
     space           Error       {}
 
 }
