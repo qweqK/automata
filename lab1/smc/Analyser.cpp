@@ -1,7 +1,9 @@
 #include "Analyser.h"
 #include "cctype"
-void Analyser::chekString(std::string &str ) {
+void SMCAnalyser::chekString(std::string &str ) {
     for (auto & c : str) {
+        if (isGood!=true) break;
+
         if (isalpha(c)) {
             _fsm.letter(c);
         }
@@ -15,20 +17,20 @@ void Analyser::chekString(std::string &str ) {
         else if (c == '\n' || c == '\r') {
             break;
         }
-
         else {
             _fsm.unknown();
         }
 
     }
     _fsm.EOS();
-    _fsm.nextString();
     massPlus(takeGood());
+    _fsm.nextString();
+
 
 }
 
 
-void Analyser::checkManyString(std::vector<std::string> lines) {
+void SMCAnalyser::checkManyString(std::vector<std::string> & lines) {
     for (auto & l : lines) {
         chekString(l);
     }

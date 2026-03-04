@@ -37,5 +37,14 @@ void writerReader::writeRes(const std::vector<bool> & res) {
     out.close();
 }
 
+void writerReader::writeTime(std::chrono::duration<double> & time) {
+    std::ofstream out(_writeTimeRes, std::ios::app);
+    if (out.is_open()) {
+        out << time.count() << std::endl;
+    }
+    else throw std::runtime_error("Error writing nameResTimeFILE");
+}
+
+
 
 

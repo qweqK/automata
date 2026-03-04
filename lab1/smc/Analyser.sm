@@ -1,4 +1,4 @@
-%class Analyser
+%class SMCAnalyser
 %header Analyser.h
 %start AnalyserMap::Start
 
@@ -41,12 +41,12 @@ ArgState{
 }
 
 GoodCom{
-    nextString      Start       {countUsesCom();resetBuffer();}
+    nextString      Start       {countUsesCom();resetBuffer();setGood();}
 }
 
 Error{
     EOS             Error       {}
-    nextString      Start       {resetBuffer();}
+    nextString      Start       {resetBuffer();setGood();}
     space           Error       {}
 
 }
