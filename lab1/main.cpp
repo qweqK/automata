@@ -17,8 +17,10 @@ int main(int argc, char **argv) {
         writerReader reader(args[2], "outputState.txt", "outputRes.txt", args[3] );
         reader.read();
         std::vector<std::chrono::duration<double>> times;
+
         auto lines = reader.getLines();
-        for (int i = 1; i < 10; i++) {
+
+        for (int i = 1; i < 11; i++) {
             std::unique_ptr<AAnalyser> a;
             if (args[1] == "f") {
                 a = std::make_unique<FLexAnalyser>(lines);
@@ -38,6 +40,7 @@ int main(int argc, char **argv) {
             times.push_back(diff);
             reader.writeState(a->getStateMap());
             reader.writeRes(a->getMassResult());
+            std::cout << diff.count() << std::endl;
         }
 
         auto res = std::accumulate(times.begin(), times.end(), std::chrono::duration<double>(0));
