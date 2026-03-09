@@ -12,6 +12,5 @@ class FLexAnalyser : public AAnalyser {
     void checkManyString(std::vector<std::string> &) override;
     std::stringstream stream;
     void check2(std::string &str);
-    void check3(std::string &str);
 
 };

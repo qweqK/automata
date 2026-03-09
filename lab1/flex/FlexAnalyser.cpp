@@ -20,20 +20,21 @@ void FLexAnalyser::check() {
 
 void FLexAnalyser::checkManyString(std::vector<std::string> &strs) {
     for (auto &s:strs ) {check2(s);}
+    //check();
 
 }
 
 
-void FLexAnalyser::check2(std::string &str) {
-    std::istringstream iss(str+"\n");
-    lexer.switch_streams(&iss, nullptr);
-    if (lexer.yylex() !=1) {_massRes.push_back(false);  return;}
-    std::string buf = lexer.YYText();
-    if (lexer.yylex()!=2) {_massRes.push_back(false);  return;}
-        _strMap[buf]++;_massRes.push_back(true);
-};
+// void FLexAnalyser::check2(std::string &str) {
+//     std::istringstream iss(str+"\n");
+//     lexer.switch_streams(&iss, nullptr);
+//     if (lexer.yylex() !=1) {_massRes.push_back(false);  return;}
+//     std::string buf = lexer.YYText();
+//     if (lexer.yylex()!=2) {_massRes.push_back(false);  return;}
+//         _strMap[buf]++;_massRes.push_back(true);
+// };
 
-void FLexAnalyser::check3(std::string &str) {
+void FLexAnalyser::check2(std::string &str) {
     std::istringstream iss(str+"\n");
     lexer.switch_streams(&iss, nullptr);
 

@@ -11,7 +11,7 @@
 int main(int argc, char **argv) {
     try {
         if (argc < 3) {
-            throw std::invalid_argument("Usage: oper_mod(-f, -s, -r) ,-intput_file.txt, time_res_file.txt, number_of_exp");
+            throw std::invalid_argument("Usage: oper_mod(f, s, r) ,-intput_file.txt, time_res_file.txt, number_of_exp");
         }
         std::vector<std::string> args(argv, argv+argc);
         writerReader reader(args[2], "outputState.txt", "outputRes.txt", args[3] );

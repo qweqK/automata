@@ -25,6 +25,7 @@
 
      while ((charDis(_generator) < curLen-numOpt*12) &&  curLen>0) {
          res.append(" -");
+         curLen -= 2;
          int l = lengthOpt(_generator);
          res.append(generateSubstr(os,l));
          numOpt++;
@@ -33,6 +34,7 @@
 
      while (curLen>0) {
          res.push_back(' ');
+         curLen -= 1;
          int l = lengthOpt(_generator);
          res.append(generateSubstr(os, l));
          curLen -= l;

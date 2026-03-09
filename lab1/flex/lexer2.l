@@ -1,6 +1,6 @@
 %option noyywrap
-%option batch
 %option c++
+%option batch
 %x OPT ARG
 %%
 

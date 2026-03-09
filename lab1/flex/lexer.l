@@ -1,5 +1,6 @@
 %option noyywrap
 %option c++
+%option batch
 %x TAIL
 %%
 <INITIAL>{
